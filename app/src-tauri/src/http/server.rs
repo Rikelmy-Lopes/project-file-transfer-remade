@@ -4,8 +4,9 @@ use std::net::IpAddr;
 use rocket::fs::{relative, FileServer};
 use rocket::{get, routes, Config, Shutdown};
 
+use crate::fs::fs::get_dir_entries;
+
 include!("../utils/os.rs");
-include!("../fs/fs.rs");
 
 #[get("/down?<password>")]
 fn down(password: &str, shutdown: Shutdown) -> &'static str {
