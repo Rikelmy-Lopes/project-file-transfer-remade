@@ -1,15 +1,24 @@
 use crate::fs::fs::get_dir_entries;
 use crate::state::state::APP_STATE;
 use local_ip_address::local_ip;
-use rocket::fs::{relative, FileServer};
+use rocket::fs::{relative, FileServer, NamedFile};
 use rocket::{get, routes, Config};
+use std::env::home_dir;
 use std::net::IpAddr;
+use std::path::Path;
 
 #[get("/entries")]
 fn get_entries() -> String {
     let files = get_dir_entries();
 
     return serde_json::to_string(&files).unwrap();
+}
+
+#[get("/download")]
+async fn download() -> Option<NamedFile> {
+    let home = home_dir().unwrap();
+    let path = Path::new(&home).join("Coding").join("SIGP_INT.jar");
+    NamedFile::open(path).await.ok()
 }
 
 #[tauri::command]
@@ -23,7 +32,7 @@ pub async fn start_server(port: u16) -> () {
     };
 
     let result = rocket::custom(&config)
-        .mount("/", routes![get_entries])
+        .mount("/", routes![get_entries, download])
         .mount("/", FileServer::from(relative!("../web-ui/webapp")))
         .ignite()
         .await;
