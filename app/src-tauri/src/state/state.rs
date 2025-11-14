@@ -1,8 +1,7 @@
-use rocket::Shutdown;
 use std::sync::Mutex;
 
-pub struct AppState {
+/* pub struct AppState {
     pub shutdown: Option<Shutdown>,
 }
 
-pub static APP_STATE: Mutex<AppState> = Mutex::new(AppState { shutdown: None });
+pub static APP_STATE: Mutex<AppState> = Mutex::new(AppState { shutdown: None }); */
