@@ -25,13 +25,6 @@ fn get_file_type(file: FileType) -> String {
     }
 }
 
-/* #[tauri::command]
-fn is_dir(dir: String) -> bool {
-    let path = PathBuf::from(dir);
-    let is_dir = path.is_dir();
-    return is_dir;
-} */
-
 pub fn get_dir_entries() -> Vec<File> {
     let paths = fs::read_dir(home_dir().unwrap()).unwrap();
     let mut files: Vec<File> = Vec::new();

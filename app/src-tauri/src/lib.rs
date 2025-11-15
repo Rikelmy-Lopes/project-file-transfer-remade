@@ -1,8 +1,8 @@
 mod fs;
 mod http;
-mod state;
 mod utils;
-use http::server::{get_current_ip, start_server, stop_server};
+use http::server::{start_server, stop_server};
+use utils::os::get_current_ip;
 
 #[cfg_attr(mobile, tauri::mobile_entry_point)]
 pub fn run() {
